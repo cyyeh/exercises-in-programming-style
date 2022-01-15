@@ -9,3 +9,5 @@
 *.class
 
 */word_freqs
+Pipfile
+Pipfile.lock
