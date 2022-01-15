@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-import sys, re, operator, string
+import sys
+import re
+import operator
+import string
 
 #
 # The all-important data stack
@@ -10,6 +13,7 @@ stack = []
 # The heap. Maps names to data (i.e. variables)
 #
 heap = {}
+
 
 #
 # The new "words" (procedures) of our program
@@ -24,16 +28,18 @@ def read_file():
     stack.append([f.read()])
     f.close()
 
+
 def filter_chars():
     """
-    Takes data on the stack and places back a copy with all 
-    nonalphanumeric chars replaced by white space. 
+    Takes data on the stack and places back a copy with all
+    nonalphanumeric chars replaced by white space.
     """
     # This is not in style. RE is too high-level, but using it
     # for doing this fast and short. Push the pattern onto stack
-    stack.append(re.compile('[\W_]+'))
+    stack.append(re.compile(r'[\W_]+'))
     # Push the result onto the stack
     stack.append([stack.pop().sub(' ', stack.pop()[0]).lower()])
+
 
 def scan():
     """
@@ -44,8 +50,9 @@ def scan():
     # it for doing this fast and short. Left as exercise.
     stack.extend(stack.pop()[0].split())
 
+
 def remove_stop_words():
-    """ 
+    """
     Takes a list of words on the stack and removes stop words.
     """
     f = open('../stop_words.txt')
@@ -59,12 +66,14 @@ def remove_stop_words():
     heap['words'] = []
     while len(stack) > 0:
         if stack[-1] in heap['stop_words']:
-            stack.pop() # pop it and drop it
+            stack.pop()  # pop it and drop it
         else:
-            heap['words'].append(stack.pop()) # pop it, store it
-    stack.extend(heap['words']) # Load the words onto the stack
-    del heap['stop_words']; del heap['words'] # Not needed 
-    
+            heap['words'].append(stack.pop())  # pop it, store it
+    stack.extend(heap['words'])  # Load the words onto the stack
+    del heap['stop_words']
+    del heap['words']  # Not needed
+
+
 def frequencies():
     """
     Takes a list of words and returns a dictionary associating
@@ -73,38 +82,45 @@ def frequencies():
     heap['word_freqs'] = {}
     # A little flavour of the real Forth style here...
     while len(stack) > 0:
-        # ... but the following line is not in style, because the 
+        # ... but the following line is not in style, because the
         # naive implementation would be too slow
         if stack[-1] in heap['word_freqs']:
             # Increment the frequency, postfix style: f 1 +
-            stack.append(heap['word_freqs'][stack[-1]]) # push f
-            stack.append(1) # push 1
-            stack.append(stack.pop() + stack.pop()) # add
+            stack.append(heap['word_freqs'][stack[-1]])  # push f
+            stack.append(1)  # push 1
+            stack.append(stack.pop() + stack.pop())  # add
         else:
-            stack.append(1) # Push 1 in stack[2]
+            stack.append(1)  # Push 1 in stack[2]
         # Load the updated freq back onto the heap
-        heap['word_freqs'][stack.pop()] = stack.pop()  
+        heap['word_freqs'][stack.pop()] = stack.pop()
 
     # Push the result onto the stack
     stack.append(heap['word_freqs'])
-    del heap['word_freqs'] # We don't need this variable anymore
+    del heap['word_freqs']  # We don't need this variable anymore
+
 
 def sort():
     # Not in style, left as exercise
     stack.extend(sorted(stack.pop().items(), key=operator.itemgetter(1)))
 
+
 # The main function
 #
 stack.append(sys.argv[1])
-read_file(); filter_chars(); scan(); remove_stop_words()
-frequencies(); sort()
+read_file()
+filter_chars()
+scan()
+remove_stop_words()
+frequencies()
+sort()
 
 stack.append(0)
 # Check stack length against 1, because after we process
 # the last word there will be one item left
 while stack[-1] < 25 and len(stack) > 1:
     heap['i'] = stack.pop()
-    (w, f) = stack.pop(); print(w, '-', f)
-    stack.append(heap['i']); stack.append(1)
+    (w, f) = stack.pop()
+    print(w, '-', f)
+    stack.append(heap['i'])
+    stack.append(1)
     stack.append(stack.pop() + stack.pop())
-
