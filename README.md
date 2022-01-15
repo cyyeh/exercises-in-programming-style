@@ -14,6 +14,8 @@ NOTE: the code in the master branch is written for Python 3.
 Explanations and historical context for all these styles can be found in the
 companion book [Exercises in Programming Style](http://www.amazon.com/Exercises-Programming-Style-Cristina-Videira/dp/1482227371/).
 
+Corresponding video lectures: https://www.youtube.com/playlist?list=PLv9WdVZbO51tyJEttMLve2qVqCGQ66o7a
+
 
 To test your work, make sure your script is executable and then run:
 
