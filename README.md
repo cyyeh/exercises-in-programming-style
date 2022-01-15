@@ -58,3 +58,36 @@ Crista
 
 P.S. Inspiration for this collection: http://en.wikipedia.org/wiki/Exercises_in_Style
 
+
+---
+
+Other computational tasks provided in the book
+
+1. Word Index
+
+Given a text file, output all words alphabetically, along with the page numbers on which they occur. Ignore all words that occur more than 100 times. Assume that a page is a sequence of 45 lines. For example, given Pride and Prejudice, the first few entries of the index would be:
+
+```
+abatement - 89
+abhorrence - 101, 145, 152, 241, 274, 281
+abhorrent - 253
+abide - 158, 292
+...
+```
+
+2. Words in Context
+
+Given a text file, display certain words alphabetically and in context, along with the page numbers of the pages in which they occur. Assume that a page is a sequence of 45 lines. Assume that context consists of the preceding and succeeding two words. Ignore punctuation. For example, given Pride and Prejudice, the words “concealment” and “hurt” would result in the following output:
+
+```
+perhaps this concealment this disguise - 150
+purpose of concealment for no - 207
+pride was hurt he suffered - 87
+must be hurt by such - 95
+and are hurt if i - 103
+pride been hurt by my - 145
+must be hurt by such - 157
+infamy was hurt and distressed – 248
+```
+
+Suggestion of words for the words in context task: concealment, discontented, hurt, agitation, mortifying, reproach, unexpected, indignation, mistake, and confusion.
