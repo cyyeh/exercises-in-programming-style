@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-import sys, string
+import sys
+import string
 
 # the global list of [word, frequency] pairs
 word_freqs = []
@@ -8,12 +9,12 @@ with open('../stop_words.txt') as f:
     stop_words = f.read().split(',')
 stop_words.extend(list(string.ascii_lowercase))
 
-# iterate through the file one line at a time 
+# iterate through the file one line at a time
 for line in open(sys.argv[1]):
     start_char = None
     i = 0
     for c in line:
-        if start_char == None:
+        if start_char is None:
             if c.isalnum():
                 # We found the start of a word
                 start_char = i
@@ -47,4 +48,3 @@ for line in open(sys.argv[1]):
 
 for tf in word_freqs[0:25]:
     print(tf[0], '-', tf[1])
-
