@@ -7,5 +7,7 @@ Constraints:
 
 Possible names:
 
-- Code golf
+- [Code golf](https://code.golf/)
 - Try hard
+
+References: 
