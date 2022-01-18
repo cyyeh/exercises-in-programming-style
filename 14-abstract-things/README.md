@@ -13,7 +13,7 @@ Constraints:
   for doing that vary
 
 - The rest of the application uses the things not by what they are but
-  by they do in abstract
+  by what they do in the abstract
 
 Possible names:
 
