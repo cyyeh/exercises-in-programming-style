@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-import sys, re, operator, string
+import sys
+import re
+import operator
+import string
+
 
 #
 # The event management substrate
@@ -20,6 +24,7 @@ class EventManager:
             for h in self._subscriptions[event_type]:
                 h(event)
 
+
 #
 # The application entities
 #
@@ -34,7 +39,7 @@ class DataStorage:
         path_to_file = event[1]
         with open(path_to_file) as f:
             self._data = f.read()
-        pattern = re.compile('[\W_]+')
+        pattern = re.compile(r'[\W_]+')
         self._data = pattern.sub(' ', self._data).lower()
 
     def produce_words(self, event):
@@ -42,6 +47,7 @@ class DataStorage:
         for w in data_str.split():
             self._event_manager.publish(('word', w))
         self._event_manager.publish(('eof', None))
+
 
 class StopWordFilter:
     """ Models the stop word filter """
@@ -60,6 +66,7 @@ class StopWordFilter:
         word = event[1]
         if word not in self._stop_words:
             self._event_manager.publish(('valid_word', word))
+
 
 class WordFrequencyCounter:
     """ Keeps the word frequency data """
@@ -81,6 +88,7 @@ class WordFrequencyCounter:
         for (w, c) in word_freqs[0:25]:
             print(w, '-', c)
 
+
 class WordFrequencyApplication:
     def __init__(self, event_manager):
         self._event_manager = event_manager
@@ -94,6 +102,7 @@ class WordFrequencyApplication:
 
     def stop(self, event):
         self._event_manager.publish(('print', None))
+
 
 #
 # The main function
