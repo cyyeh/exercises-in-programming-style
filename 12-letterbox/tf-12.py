@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-import sys, re, operator, string
+import sys
+import re
+import operator
+import string
+
 
 class DataStorageManager():
     """ Models the contents of the file """
@@ -12,17 +16,18 @@ class DataStorageManager():
             return self._words()
         else:
             raise Exception("Message not understood " + message[0])
- 
+
     def _init(self, path_to_file):
         with open(path_to_file) as f:
             self._data = f.read()
-        pattern = re.compile('[\W_]+')
+        pattern = re.compile(r'[\W_]+')
         self._data = pattern.sub(' ', self._data).lower()
 
     def _words(self):
         """ Returns the list words in storage"""
         data_str = ''.join(self._data)
         return data_str.split()
+
 
 class StopWordManager():
     """ Models the stop word filter """
@@ -35,7 +40,7 @@ class StopWordManager():
             return self._is_stop_word(message[1])
         else:
             raise Exception("Message not understood " + message[0])
- 
+
     def _init(self):
         with open('../stop_words.txt') as f:
             self._stop_words = f.read().split(',')
@@ -43,6 +48,7 @@ class StopWordManager():
 
     def _is_stop_word(self, word):
         return word in self._stop_words
+
 
 class WordFrequencyManager():
     """ Keeps the word frequency data """
@@ -55,7 +61,7 @@ class WordFrequencyManager():
             return self._sorted()
         else:
             raise Exception("Message not understood " + message[0])
- 
+
     def _increment_count(self, word):
         if word in self._word_freqs:
             self._word_freqs[word] += 1
@@ -64,6 +70,7 @@ class WordFrequencyManager():
 
     def _sorted(self):
         return sorted(self._word_freqs.items(), key=operator.itemgetter(1), reverse=True)
+
 
 class WordFrequencyController():
 
@@ -74,7 +81,7 @@ class WordFrequencyController():
             return self._run()
         else:
             raise Exception("Message not understood " + message[0])
- 
+
     def _init(self, path_to_file):
         self._storage_manager = DataStorageManager()
         self._stop_word_manager = StopWordManager()
@@ -91,10 +98,10 @@ class WordFrequencyController():
         for (w, c) in word_freqs[0:25]:
             print(w, '-', c)
 
+
 #
 # The main function
 #
 wfcontroller = WordFrequencyController()
 wfcontroller.dispatch(['init', sys.argv[1]])
 wfcontroller.dispatch(['run'])
-
