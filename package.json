@@ -1,0 +1,27 @@
+{
+  "name": "exercises-in-programming-style",
+  "version": "1.0.0",
+  "description": "Exercises in Programming Style",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "js2flowchart": "js2flowchart"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyyeh/exercises-in-programming-style.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cyyeh/exercises-in-programming-style/issues"
+  },
+  "homepage": "https://github.com/cyyeh/exercises-in-programming-style#readme",
+  "devDependencies": {
+    "js2flowchart": "^1.3.2"
+  }
+}
